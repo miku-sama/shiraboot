@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{:config('webname')} - 密钥列表</title>
+
+	{load href="/static/vendor/bootstrap/css/bootstrap.min.css,/static/vendor/metisMenu/metisMenu.min.css,/static/dist/css/sb-admin-2.css,/static/vendor/morrisjs/morris.css,/static/vendor/font-awesome/css/font-awesome.min.css" /}
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+		{include file="../application/index/view/public/menu.html" /}
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">密钥列表</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!--文章列表-->
+			<div class="row">
+				<div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            未使用和已禁止的密钥
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>密钥</th>
+                                            <th>所属套餐</th>
+                                            <th>套餐时长</th>
+                                            <th>状态</th>
+                                            <th>备注</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+									{volist name="cdkeyList" id="vo"}
+                                        <tr>
+                                            <td>{$vo.id}</td>
+                                            <td>{$vo.value}</td>
+                                            <td>{$vo.plan}</td>
+                                            <td>{:$vo['expiration']/86400}天</td>
+											{switch name="vo.status"}
+												{case value="0"}<td>未使用</td>{/case}
+												{case value="2"}<td>已禁止</td>{/case}
+												{default /}<td>已使用</td>
+											{/switch}
+											<td>{$vo.note}</td>
+                                        </tr>
+									{/volist}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+				<div class="col-lg-4">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            密钥生成
+                        </div>
+						<form method="post">
+							<div class="panel-body">
+								<div class="form-group input-group">
+									<span class="input-group-addon">数量</span>
+									<input name="quantity" type="text" class="form-control" placeholder="建议每次不超过50个">
+								</div>
+								<div class="form-group input-group">
+									<span class="input-group-addon">时间</span>
+									<input name="day" type="text" class="form-control" placeholder="7">
+									<span class="input-group-addon">天</span>
+								</div>
+								<div class="form-group input-group">
+									<span class="input-group-addon">所属套餐</span>
+									<select name="plan" class="form-control">
+									{volist name="planList" id="vo"}
+										<option value="{$vo.id}">{$vo.name}</option>
+									{/volist}
+									</select>
+								</div>
+								<div class="form-group input-group">
+									<span class="input-group-addon">备注</span>
+									<input name="note" type="text" class="form-control" placeholder="如:淘宝销售,发卡平台,此条不强制填写.">
+								</div>
+							</div>
+							<div class="panel-footer">
+								<input type="hidden" name="mode" value="add" />
+								<button type="submit" class="btn btn-success">生成</button>
+							</div>
+						</form>
+                    </div>
+                    <!-- /.col-lg-4 -->
+                </div>
+			</div>
+            <!--文章列表结束-->
+			</div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+	{load href="/static/vendor/jquery/jquery.min.js,/static/vendor/bootstrap/js/bootstrap.min.js,/static/vendor/metisMenu/metisMenu.min.js,/static/vendor/raphael/raphael.min.js,/static/vendor/morrisjs/morris.min.js,/static/dist/js/sb-admin-2.js" /}
+
+</body>
+
+</html>

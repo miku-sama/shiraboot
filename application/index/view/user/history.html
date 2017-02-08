@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{:config('webname')}</title>
+
+	{load href="/static/vendor/bootstrap/css/bootstrap.min.css,/static/vendor/metisMenu/metisMenu.min.css,/static/dist/css/sb-admin-2.css,/static/vendor/morrisjs/morris.css,/static/vendor/font-awesome/css/font-awesome.min.css" /}
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+		{include file="public/menu" /}
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">用户面板</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+			<div class="row">
+				<div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            攻击历史
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+								{if condition="$historyList eq false"}
+								<div class="alert alert-info">
+									没有正在进行的攻击,您可以:<a href="{:Url('Hub/index')}" class="alert-link">发起一次攻击</a>.
+								</div>
+								{else/}
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ip</th>
+                                            <th>模式</th>
+                                            <th>时间</th>
+                                            <th>发起时间</th>
+                                            <th>状态</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+									{volist name='historyList' id='vo'}
+											<tr>
+                                            <td>{$vo.ip}</td>
+                                            <td>{$vo.mode}</td>
+                                            <td>{$vo.time}</td>
+                                            <td>{:date("Y-m-d H:s",$vo['start_time'])}</td>
+											{if condition="$vo['start_time'] + $vo['time'] elt time() and $vo['stop'] neq 1"}
+												<td>已结束</td>
+											{elseif condition="$vo['start_time'] + $vo['time'] gt time() and $vo['stop'] neq 1"/}
+											<td>进行中</td>
+											{else /}
+											<td>已停止</td>
+											{/if}
+                                        </tr>
+									{/volist}
+                                    </tbody>
+                                </table>
+								{/if}
+                            </div>
+                            <!-- /.table-responsive -->
+							{eq name='list.previous' value="0"}
+							<a class="btn btn-default disabled">没有了</a>
+							{else/}
+							<a href="{:Url('Index/User/history',['list'=>$list['previous']])}" class="btn btn-default">上一页</a>
+							{/eq}
+							{eq name='list.next' value="0"}
+							<a class="btn btn-default pull-right disabled">没有了</a>
+							{else/}
+							<a href="{:Url('Index/User/history',['list'=>$list['next']])}" class="btn btn-default pull-right">下一页</a>
+							{/eq}
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+			</div>
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+	{load href="/static/vendor/jquery/jquery.min.js,/static/vendor/bootstrap/js/bootstrap.min.js,/static/vendor/metisMenu/metisMenu.min.js,/static/vendor/raphael/raphael.min.js,/static/vendor/morrisjs/morris.min.js,/static/dist/js/sb-admin-2.js" /}
+
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{:config('webname')} - ip白名单列表</title>
+
+	{load href="/static/vendor/bootstrap/css/bootstrap.min.css,/static/vendor/metisMenu/metisMenu.min.css,/static/dist/css/sb-admin-2.css,/static/vendor/morrisjs/morris.css,/static/vendor/font-awesome/css/font-awesome.min.css" /}
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+		{include file="../application/index/view/public/menu.html" /}
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">ip白名单列表</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<i class="fa fa-users"></i> 禁止对以下ip发动攻击 
+							</div>
+							<!-- /.panel-heading -->
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>ip</th>
+												<th>备注</th>
+												<th>添加时间</th>
+												<th>操作</th>
+											</tr>
+										</thead>
+										<tbody>
+										{volist name="wList" id="vo"}
+											<tr>
+												<td>{$vo.id}</td>
+												<td>{$vo.ip}</td>
+												<td>{$vo.note}</td>
+												<td>{:date("Y-m-d H:s",$vo['time'])}</td>
+												<td><a href="{:Url('Admin/Wlist/del',['id'=>$vo['id']])}"  class="btn btn-danger">删除</a></td>
+											</tr>
+											{/volist}
+										</tbody>
+									</table>
+								</div>
+								<!-- /.table-responsive -->
+							</div>
+							<!-- /.panel-body -->
+						</div>
+						<!-- /.panel -->
+					</div>
+					<div class="col-lg-4">
+						<div class="panel panel-green">
+							<div class="panel-heading">
+								新增ip
+							</div>
+							<form method="post">
+								<div class="panel-body">
+									<div class="form-group input-group">
+										 <span class="input-group-addon">ip</span>
+										<input name="ip" type="text" class="form-control" placeholder="输入禁止攻击的ip">
+									</div>
+									<div class="form-group input-group">
+										 <span class="input-group-addon">备注</span>
+										<input name="note" type="text" class="form-control" placeholder="输入备注">
+									</div>
+								</div>
+								<div class="panel-footer">
+									<button type="submit" class="btn btn-default">添加</button>
+								</div>
+							</form>
+						</div>
+						<!-- /.col-lg-4 -->
+					</div>
+				</div>
+			</div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+	{load href="/static/vendor/jquery/jquery.min.js,/static/vendor/bootstrap/js/bootstrap.min.js,/static/vendor/metisMenu/metisMenu.min.js,/static/vendor/raphael/raphael.min.js,/static/vendor/morrisjs/morris.min.js,/static/dist/js/sb-admin-2.js" /}
+
+</body>
+
+</html>

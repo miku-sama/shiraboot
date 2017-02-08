@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{:config('webname')} - 会员列表</title>
+
+	{load href="/static/vendor/bootstrap/css/bootstrap.min.css,/static/vendor/metisMenu/metisMenu.min.css,/static/dist/css/sb-admin-2.css,/static/vendor/morrisjs/morris.css,/static/vendor/font-awesome/css/font-awesome.min.css" /}
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+		{include file="../application/index/view/public/menu.html" /}
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">会员列表</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<i class="fa fa-users"></i> 会员列表 
+							</div>
+							<!-- /.panel-heading -->
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>用户名</th>
+												<th>邮箱</th>
+												<th>注册时间</th>
+												<th>用户状态</th>
+												<th>用户类型</th>
+												<th>套餐id</th>
+												<th>套餐名称</th>
+												<th>套餐类型</th>
+												<th>最大攻击时间</th>
+												<th>最大攻击次数</th>
+												<th>最大并发</th>
+												<th>当日剩余次数</th>
+												<th>套餐到期时间</th>
+												<th>操作</th>
+											</tr>
+										</thead>
+										<tbody>
+										{volist name="userList" id="vo"}
+											<tr>
+												<td>{$vo.id}</td>
+												<td>{$vo.username}</td>
+												<td>{$vo.email}</td>
+												<td>{:date("Y-m-d H:s",$vo['register_time'])}</td>
+												{switch name="vo.status"}
+													{case value="0"}<td>封禁</td>{/case}
+													{case value="2"}<td>未激活</td>{/case}
+													{default /}<td>正常</td>
+												{/switch}
+												{eq name="vo.type" value="1"}
+												<td>用户</td>
+												{else/}
+												<td>管理员</td>
+												{/eq}
+												<td>{$vo.plan}</td>
+												<td>{$vo.plan_name}</td>
+												{eq name="vo.vip" value="1"}
+												<td>vip套餐</td>
+												{else/}
+												<td>普通套餐</td>
+												{/eq}
+												<td>{$vo.maxtime}</td>
+												<td>{$vo.maxnum}</td>
+												<td>{$vo.maxboot}</td>
+												<td>{$vo.remainder}</td>
+												{if condition="$vo['expiration'] < time()"}<td>已到期</td>
+												{else /}<td>{:date("Y-m-d H:s",$vo['expiration'])}</td>
+												{/if}
+												<td><a href="{:Url('Admin/Member/edit',['id'=>$vo['id']])}"  class="btn btn-primary">编辑</a></td>
+												
+											</tr>
+											{/volist}
+										</tbody>
+									</table>
+								</div>
+								<!-- /.table-responsive -->
+							</div>
+							<!-- /.panel-body -->
+						</div>
+						<!-- /.panel -->
+					</div>
+					<div class="col-lg-4">
+						<div class="panel panel-green">
+							<div class="panel-heading">
+								新增会员
+							</div>
+							<form method="post">
+								<div class="panel-body">
+									<div class="form-group input-group">
+										 <span class="input-group-addon">用户名</span>
+										<input name="username" type="text" class="form-control" placeholder="用户名">
+									</div>
+									<div class="form-group input-group">
+										 <span class="input-group-addon">密码</span>
+										<input name="passwd" type="text" class="form-control" placeholder="密码">
+									</div>
+									<div class="form-group input-group">
+										 <span class="input-group-addon">邮箱</span>
+										<input name="email" type="text" class="form-control" placeholder="XXX@XXX.com">
+									</div>
+									<div class="form-group input-group">
+										 <span class="input-group-addon">用户状态</span>
+										<select name="status" class="form-control">
+											<option value="0">封禁</option>
+											<option value="1">正常</option>
+											<option value="2">未激活</option>
+										</select>
+									</div>
+									<div class="form-group input-group">
+										 <span class="input-group-addon">用户类型</span>
+										<select name="type" class="form-control">
+											<option value="1">普通用户</option>
+											<option value="2">管理员</option>
+										</select>
+									</div>
+									<div class="form-group input-group">
+										 <span class="input-group-addon">所属套餐</span>
+										<select name="plan" class="form-control">
+											<option value="0">不分配套餐</option>
+											{volist name='planInfo' id='vo'}
+											<option value="{$vo.id}">{$vo.name}</option>
+											{/volist}
+										</select>
+									</div>
+									<div class="form-group input-group">
+										 <span class="input-group-addon">套餐类型</span>
+										<select name="vip" class="form-control">
+											<option value="0">普通套餐</option>
+											<option value="2">vip套餐</option>
+										</select>
+									</div>
+									<div class="form-group input-group">
+										 <span class="input-group-addon">套餐天数</span>
+										<input name="day" type="text" class="form-control" placeholder="7">
+										 <span class="input-group-addon">天</span>
+									</div>
+								</div>
+								<div class="panel-footer">
+									<button type="submit" class="btn btn-default">添加</button>
+								</div>
+							</form>
+						</div>
+						<!-- /.col-lg-4 -->
+					</div>
+				</div>
+			</div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+	{load href="/static/vendor/jquery/jquery.min.js,/static/vendor/bootstrap/js/bootstrap.min.js,/static/vendor/metisMenu/metisMenu.min.js,/static/vendor/raphael/raphael.min.js,/static/vendor/morrisjs/morris.min.js,/static/dist/js/sb-admin-2.js" /}
+
+</body>
+
+</html>

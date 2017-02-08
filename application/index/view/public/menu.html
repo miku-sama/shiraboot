@@ -1,0 +1,102 @@
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{:url('index/user/index')}">{:config('webname')}</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> {$userInfo.username} <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="{:Url('Index/User/info')}"><i class="fa fa-user fa-fw"></i>用户信息</a>
+                        </li>
+                        <li><a href="{:Url('Index/User/info')}"><i class="fa fa-gear fa-fw"></i>账户设置</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="{:Url('index/user/login',['mode'=>'logout'])}"><i class="fa fa-sign-out fa-fw"></i>登出</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="{:Url('Index/User/index')}"><i class="fa fa-dashboard fa-fw"></i> 用户面板</a>
+                        </li>
+                        <li>
+                            <a href="{:Url('Index/Hub/index')}"><i class="fa fa-fire fa-fw"></i> 发动攻击</a>
+                        </li>
+                        <li>
+                            <a href="{:Url('Index/User/history')}"><i class="fa fa-history fa-fw"></i> 历史记录</a>
+                        </li>
+                        <li>
+                            <a href="{:Url('Index/Plans/index')}"><i class="fa fa-paper-plane fa-fw"></i> 购买套餐</a>
+                        </li>
+                        <li>
+                            <a href="{:Url('Index/User/activate')}"><i class="fa fa-key fa-fw"></i> 密钥激活</a>
+                        </li>
+						{if condition="isAdmin() neq false"}
+						<li>
+                            <a href="#"><i class="fa fa-user fa-fw"></i>管理员<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="{:Url('Admin/Article/index')}">公告列表</a>
+                                </li>
+                                <li>
+                                    <a href="{:Url('Admin/Server/index')}">节点列表</a>
+                                </li>
+                                <li>
+                                    <a href="{:Url('Admin/Member/index')}">会员列表</a>
+                                </li>
+                                <li>
+                                    <a href="{:Url('Admin/Plans/index')}">套餐列表</a>
+                                </li>
+                                <li>
+                                    <a href="{:Url('Admin/Cdkey/index')}">密钥列表</a>
+                                </li>
+                                <li>
+                                    <a href="{:Url('Admin/Wlist/index')}">IP白名单列表</a>
+                                </li>
+                                <li>
+                                    <a href="{:Url('Admin/Article/add')}">发布公告</a>
+                                </li>
+                                <li>
+                                    <a href="{:Url('Admin/Server/add')}">添加节点</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+						{/if}
+                        <li>
+                            <a href="#"><i class="fa fa-user fa-fw"></i>账户信息<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="{:Url('Index/User/info')}">账户设置</a>
+                                </li>
+                                <li>
+                                    <a href="{:Url('Index/User/login',['mode'=>'logout'])}">登出</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{:config('webname')} - 确认删除</title>
+
+	{load href="/static/vendor/bootstrap/css/bootstrap.min.css,/static/vendor/metisMenu/metisMenu.min.css,/static/dist/css/sb-admin-2.css,/static/vendor/morrisjs/morris.css,/static/vendor/font-awesome/css/font-awesome.min.css" /}
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+		{include file="../application/index/view/public/menu.html" /}
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">节点删除</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-yellow">
+							<div class="panel-heading">
+								您要删除的节点信息,请确认
+							</div>
+							<div class="panel-body">
+								<div class="list-group">
+									<span  class="list-group-item">
+										<i class="fa fa-comment fa-fw"></i> 名称
+										<span class="pull-right text-muted">{$serverInfo.name}
+										</span>
+									</span>
+									<span  class="list-group-item">
+										<i class="fa fa-comment fa-fw"></i> 类型
+										<span class="pull-right text-muted">{$serverInfo.type}
+										</span>
+									</span>
+									<span  class="list-group-item">
+										<i class="fa fa-comment fa-fw"></i> 节点类型
+										<span class="pull-right text-muted">{$serverInfo.vip}
+										</span>
+									</span>
+									<span  class="list-group-item">
+										<i class="fa fa-comment fa-fw"></i> 主机
+										<span class="pull-right text-muted">{$serverInfo.host}
+										</span>
+									</span>
+									<span  class="list-group-item">
+										<i class="fa fa-comment fa-fw"></i> 端口
+										<span class="pull-right text-muted">{$serverInfo.port}
+										</span>
+									</span>
+									<span  class="list-group-item">
+										<i class="fa fa-comment fa-fw"></i> 用户名
+										<span class="pull-right text-muted">{$serverInfo.username}
+										</span>
+									</span>
+									<span  class="list-group-item">
+										<i class="fa fa-comment fa-fw"></i> 密码/密钥
+										<span class="pull-right text-muted">{$serverInfo.passwd}
+										</span>
+									</span>
+									<span  class="list-group-item">
+										<i class="fa fa-comment fa-fw"></i> 工具路径
+										<span class="pull-right text-muted">{$serverInfo.tool_dir}
+										</span>
+									</span>
+									<span  class="list-group-item">
+										<i class="fa fa-comment fa-fw"></i> 支持的模式
+										<span class="pull-right text-muted">{$serverInfo.mode}
+										</span>
+									</span>
+									<span  class="list-group-item">
+										<i class="fa fa-comment fa-fw"></i> 并发
+										<span class="pull-right text-muted">{$serverInfo.maximum}
+										</span>
+									</span>
+									<span  class="list-group-item">
+										<i class="fa fa-comment fa-fw"></i> 备注
+										<span class="pull-right text-muted">{$serverInfo.note}
+										</span>
+									</span>
+								</div>
+							</div>
+							<div class="panel-footer">
+								<a href="{:Url('Admin/Server/del',['id'=>$serverInfo['id'],'do'=>'yes'])}" class="btn btn-danger">删除</a>
+								<a href="{:Url('Admin/Index/index')}" class="btn btn-success pull-right">返回</a>
+							</div>
+						</div>
+						<!-- /.col-lg-4 -->
+					</div>
+				</div>
+			</div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+	{load href="/static/vendor/jquery/jquery.min.js,/static/vendor/bootstrap/js/bootstrap.min.js,/static/vendor/metisMenu/metisMenu.min.js,/static/vendor/raphael/raphael.min.js,/static/vendor/morrisjs/morris.min.js,/static/dist/js/sb-admin-2.js" /}
+
+</body>
+
+</html>

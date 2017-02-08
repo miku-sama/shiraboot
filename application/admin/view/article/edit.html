@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{:config('webname')} - 公告编辑</title>
+
+	{load href="/static/vendor/bootstrap/css/bootstrap.min.css,/static/vendor/metisMenu/metisMenu.min.css,/static/dist/css/sb-admin-2.css,/static/vendor/morrisjs/morris.css,/static/vendor/font-awesome/css/font-awesome.min.css" /}
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+		{include file="../application/index/view/public/menu.html" /}
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">编辑「{$articleInfo.title}」</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+				<div class="row">
+					<div class="col-lg-12">
+						<form method="post">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<div class="row">
+										<div style="padding-left:1%;padding-right:1%;">
+											<div class="form-group input-group pull-left col-xs-12 col-sm-6 col-md-10">
+												<span class="input-group-addon">标题</span>
+												<input name="title" type="text" class="form-control" value="{$articleInfo.title}" placeholder="填写一个文章标题">
+											</div>
+											<div class="form-group input-group pull-right col-xs-6 col-md-2">
+												<span class="input-group-addon">类型</span>
+													<select name="type" class="form-control">
+													{switch name="articleInfo.type"}
+														{case value="0"}
+														<option value="0" selected = "selected">隐藏</option>
+														<option value="1">普通</option>
+														<option value="2">顶置</option>
+														{/case}
+														{case value="2"}
+														<option value="0">隐藏</option>
+														<option value="1">普通</option>
+														<option value="2" selected = "selected">顶置</option>
+														{/case}
+														{default /}
+														<option value="0">隐藏</option>
+														<option value="1" selected = "selected">普通</option>
+														<option value="2">顶置</option>
+													{/switch}
+
+													</select>
+											</div>
+										</div>		
+									</div>
+								</div>
+								<div class="panel-body">
+									<!-- 加载编辑器的容器 -->
+									<script id="container" name="content" type="text/plain">{$articleInfo.content}</script>
+								</div>
+								<div class="panel-footer">
+									<button type="submit" class="btn btn-success">修改</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+	{load href="/static/vendor/jquery/jquery.min.js,/static/vendor/bootstrap/js/bootstrap.min.js,/static/vendor/metisMenu/metisMenu.min.js,/static/vendor/raphael/raphael.min.js,/static/vendor/morrisjs/morris.min.js,/static/dist/js/sb-admin-2.js,/ue/ueditor.config.js,/ue/ueditor.all.js" /}
+    <script type="text/javascript">
+        var ue = UE.getEditor('container');
+    </script>
+</body>
+
+</html>

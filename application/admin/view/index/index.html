@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{:config('webname')} - 管理面板首页</title>
+
+	{load href="/static/vendor/bootstrap/css/bootstrap.min.css,/static/vendor/metisMenu/metisMenu.min.css,/static/dist/css/sb-admin-2.css,/static/vendor/morrisjs/morris.css,/static/vendor/font-awesome/css/font-awesome.min.css" /}
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+		{include file="../application/index/view/public/menu.html" /}
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">服务器列表</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+
+				<div class="row">
+					<div class="col-lg-12">
+					{$test}
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<i class="fa fa-tasks"></i> 节点列表 
+							</div>
+							<!-- /.panel-heading -->
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>名称</th>
+												<th>类型</th>
+												<th>节点类型</th>
+												<th>ip/地址</th>
+												<th>端口</th>
+												<th>用户名</th>
+												<th>密码/密钥</th>
+												<th>路径</th>
+												<th>类型</th>
+												<th>最大并发</th>
+												<th>备注</th>
+												<th>编辑</th>
+												<th>删除</th>
+											</tr>
+										</thead>
+										<tbody>
+										{volist name="serverInfo" id="vo"}
+											<tr>
+												<td>{$vo.id}</td>
+												<td>{$vo.name}</td>
+												{eq name="vo.type" value="1"}
+												<td>直连</td>
+												{else/}
+												<td>api</td>
+												{/eq}
+												{eq name="vo.vip" value="1"}
+												<td>vip节点</td>
+												{else/}
+												<td>普通节点</td>
+												{/eq}
+												<td>{$vo.host}</td>
+												{eq name="vo.type" value="1"}
+												<td>{$vo.port}</td>
+												{else/}
+												<td>无</td>
+												{/eq}
+												{eq name="vo.type" value="1"}
+												<td>{$vo.username}</td>
+												{else/}
+												<td>无</td>
+												{/eq}
+												<td>{$vo.passwd}</td>
+												{eq name="vo.type" value="1"}
+												<td>{$vo.tool_dir}</td>
+												{else/}
+												<td>无</td>
+												{/eq}
+												<td>{$vo.mode}</td>
+												<td>{$vo.maximum}</td>
+												<td>{$vo.note}</td>
+												<td><a href="{:Url('Admin/Server/edit',['id'=>$vo['id']])}"  class="btn btn-primary">编辑</a></td>
+												<td><a href="{:Url('Admin/Server/del',['id'=>$vo['id']])}" class="btn btn-danger">删除</a></td>
+												
+											</tr>
+											{/volist}
+										</tbody>
+									</table>
+								</div>
+								<!-- /.table-responsive -->
+								<a href="{:Url('Admin/Server/add')}" class="btn btn-default btn-block">添加新的节点</a>
+							</div>
+							<!-- /.panel-body -->
+						</div>
+						<!-- /.panel -->
+					</div>
+				</div>
+			</div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+	{load href="/static/vendor/jquery/jquery.min.js,/static/vendor/bootstrap/js/bootstrap.min.js,/static/vendor/metisMenu/metisMenu.min.js,/static/vendor/raphael/raphael.min.js,/static/vendor/morrisjs/morris.min.js,/static/dist/js/sb-admin-2.js" /}
+
+</body>
+
+</html>

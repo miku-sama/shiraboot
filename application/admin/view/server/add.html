@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{:config('webname')} - 添加新节点</title>
+
+	{load href="/static/vendor/bootstrap/css/bootstrap.min.css,/static/vendor/metisMenu/metisMenu.min.css,/static/dist/css/sb-admin-2.css,/static/vendor/morrisjs/morris.css,/static/vendor/font-awesome/css/font-awesome.min.css" /}
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+		{include file="../application/index/view/public/menu.html" /}
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">添加节点</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+
+				<div class="row">
+					<div class="col-lg-12">
+					{$test}
+						<form method="post">
+							<div class="panel panel-info">
+								<div class="panel-heading">
+									<i class="fa fa-tasks"></i> 增加一个新的节点 
+								</div>
+								<div class="panel-body">
+									<div class="form-group input-group">
+										<span class="input-group-addon">名称</span>
+										<input name="name" type="text" class="form-control" placeholder="节点名称">
+									</div>
+									<div class="form-group input-group">
+										<span class="input-group-addon">类型:
+										</span>
+										<select name="type" class="form-control">
+											<option value="1">直连</option>
+											<option value="2">API</option>
+										</select>
+									</div>
+									<div class="form-group input-group">
+										<span class="input-group-addon">节点类型:
+										</span>
+										<select name="vip" class="form-control">
+											<option value="0">普通节点</option>
+											<option value="1">VIP节点</option>
+										</select>
+									</div>
+									<div class="form-group input-group">
+										<span class="input-group-addon">主机</span>
+										<input name="host" type="text" class="form-control" placeholder="127.0.0.1">
+									</div>
+									<div class="form-group input-group">
+										<span class="input-group-addon">端口</span>
+										<input name="port" type="text" class="form-control" placeholder="22">
+									</div>
+									<div class="form-group input-group">
+										<span class="input-group-addon">用户名</span>
+										<input name="username" type="text" class="form-control" placeholder="root">
+									</div>
+									<div class="form-group input-group">
+										<span class="input-group-addon">密码/密钥</span>
+										<input name="passwd" type="text" class="form-control" placeholder="12345678">
+									</div>
+									<div class="form-group input-group">
+										<span class="input-group-addon">工具路径</span>
+										<input name="tool_dir" type="text" class="form-control" placeholder="/root/ddos">
+									</div>
+									<div class="form-group">
+										<label>反射模式</label>
+										{volist name="methodList.reflect" id="vo"}
+										<label class="checkbox-inline">
+											<input name="mode[]" value="{$vo}" type="checkbox"><span style="text-transform:uppercase;" >{$vo}</span>
+										</label>
+										{/volist}
+									</div>
+									<div class="form-group">
+										<label>普通模式</label>
+										{volist name="methodList.usually" id="vo"}
+										<label class="checkbox-inline">
+											<input name="mode[]" value="{$vo}" type="checkbox"><span style="text-transform:uppercase;" >{$vo}</span>
+										</label>
+										{/volist}
+									</div>
+									<div class="form-group">
+										<label>7层模式</label>
+										{volist name="methodList.application" id="vo"}
+										<label class="checkbox-inline">
+											<input name="mode[]" value="{$vo}" type="checkbox"><span style="text-transform:uppercase;" >{$vo}</span>
+										</label>
+										{/volist}
+									</div>
+									<div class="alert alert-danger">为了降低查水表的几率,建议通常模式和反射模式不要放在同一节点,普通模式强烈建议使用匿名服务器!</div>
+									<div class="form-group input-group">
+										<span class="input-group-addon">最大并发</span>
+										<input name="maximum" type="text" class="form-control" placeholder="10">
+									</div>
+									<div class="form-group input-group">
+										<span class="input-group-addon">备注</span>
+										<input name="note" type="text" class="form-control" placeholder="节点信息的备注">
+									</div>
+								</div>
+								<div class="panel-footer">
+									<button type="submit" class="btn btn-primary">添加</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+	{load href="/static/vendor/jquery/jquery.min.js,/static/vendor/bootstrap/js/bootstrap.min.js,/static/vendor/metisMenu/metisMenu.min.js,/static/vendor/raphael/raphael.min.js,/static/vendor/morrisjs/morris.min.js,/static/dist/js/sb-admin-2.js" /}
+
+</body>
+
+</html>

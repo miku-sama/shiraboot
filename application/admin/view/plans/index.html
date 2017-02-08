@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{:config('webname')} - 套餐列表</title>
+
+	{load href="/static/vendor/bootstrap/css/bootstrap.min.css,/static/vendor/metisMenu/metisMenu.min.css,/static/dist/css/sb-admin-2.css,/static/vendor/morrisjs/morris.css,/static/vendor/font-awesome/css/font-awesome.min.css" /}
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+		{include file="../application/index/view/public/menu.html" /}
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">套餐列表</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+			<div class="row">
+			{volist name="planList" id="vo"}
+			<div class="col-lg-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-center">{$vo.name}</div>
+                        <div class="panel-body">
+                                <span class="list-group-item">
+                                    <i class="glyphicon glyphicon-fire fa-fw"></i> 最大攻击时间
+                                    <span class="pull-right text-muted ">{$vo.maxtime}</span>
+                                </span>
+                                <span class="list-group-item">
+                                    <i class="fa fa-fire fa-fw"></i> 最大并发量
+                                    <span class="pull-right text-muted ">{$vo.maxboot}</span>
+                                </span>
+                                <span class="list-group-item">
+                                    <i class="fa fa-fire fa-fw"></i> 每日最大攻击数量
+                                    <span class="pull-right text-muted ">{$vo.maxnum}</span>
+                                </span>
+                                <span class="list-group-item">
+                                    <i class="fa fa-rmb fa-fw"></i> 套餐价格
+                                    <span class="pull-right text-muted ">{$vo.price}</span>
+                                </span>
+                                <span class="list-group-item">
+                                    <i class="fa fa-star fa-fw"></i> 套餐类型
+                                    <span class="pull-right text-muted ">
+									{eq name="vo.vip" value="0"}普通套餐{else/}vip套餐{/eq}
+																		</span>
+                                </span>
+                                <span class="list-group-item">
+                                    <i class="fa fa-reorder fa-fw"></i> 销售状态
+                                    <span class="pull-right text-muted ">
+									{eq name="vo.status" value="0"}停止销售{else/}正在销售{/eq}
+																		</span>
+                                </span>
+								<span class="list-group-item">
+                                    <i class="glyphicon glyphicon-time fa-fw"></i> 计费周期
+                                    <span class="pull-right text-muted ">{:$vo['cycle']/86400}天</span>
+                                </span>
+							<a href="{:Url('Admin/Plans/edit',['id'=>$vo['id']])}" class="btn btn-info col-lg-4 pull-left">编辑</a><a href="{:Url('Admin/Plans/del',['id'=>$vo['id']])}" class="btn btn-danger col-lg-4 pull-right">删除</a>
+						</div>
+                    </div>
+                </div>
+			{/volist}
+				<div class="col-lg-3">
+						<div class="panel panel-green">
+							<form method="post">
+							<div class="panel-heading text-center" style="border-color:#5cb85c;color: white;background-color: #5cb85c;">
+								<input name="name" type="text" class="form-control" id="inputSuccess" placeholder="添加一个新套餐">
+							</div>
+							<div class="panel-body">
+								<div class="form-group input-group">
+                                    <span class="input-group-addon">最大攻击时间</span>
+                                    <input name="maxtime" type="text" class="form-control" placeholder="300">
+                                </div>
+								<div class="form-group input-group">
+                                    <span class="input-group-addon">最大并发量</span>
+                                    <input name="maxboot" type="text" class="form-control" placeholder="1">
+                                </div>
+								<div class="form-group input-group">
+                                    <span class="input-group-addon">每日最大攻击数量</span>
+                                    <input name="maxnum" type="text" class="form-control" placeholder="50">
+                                </div>
+								<div class="form-group input-group">
+                                    <span class="input-group-addon">套餐价格</span>
+                                    <input name="price" type="text" class="form-control" placeholder="50">
+                                </div>
+								<div class="form-group input-group">
+                                    <span class="input-group-addon">套餐类型</span>
+									<select name="vip" class="form-control">
+										<option value="0">普通套餐</option>
+										<option value="1">vip套餐</option>
+									</select>
+                                </div>
+								<div class="form-group input-group">
+                                    <span class="input-group-addon">销售状态</span>
+									<select name="status" class="form-control">
+										<option value="0">停止销售</option>
+										<option value="1">正在销售</option>
+									</select>
+                                </div>
+								<div class="form-group input-group">
+                                    <span class="input-group-addon">计费周期</span>
+                                    <input name="day" type="text" class="form-control" placeholder="7">
+									<span class="input-group-addon">天</span>
+                                </div>
+								<button type="submit" class="btn btn-success btn-block col-lg-4">添加套餐</button>
+							</div>
+							</form>
+						</div>
+					</div>
+			</div>
+			
+		</div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+	{load href="/static/vendor/jquery/jquery.min.js,/static/vendor/bootstrap/js/bootstrap.min.js,/static/vendor/metisMenu/metisMenu.min.js,/static/vendor/raphael/raphael.min.js,/static/vendor/morrisjs/morris.min.js,/static/dist/js/sb-admin-2.js" /}
+
+</body>
+
+</html>

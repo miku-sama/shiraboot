@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{:config('webname')}</title>
+
+	{load href="/static/vendor/bootstrap/css/bootstrap.min.css,/static/vendor/metisMenu/metisMenu.min.css,/static/dist/css/sb-admin-2.css,/static/vendor/morrisjs/morris.css,/static/vendor/font-awesome/css/font-awesome.min.css" /}
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+		{include file="public/menu" /}
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">用户面板</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tasks fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{$bootInfo.server}</div>
+                                    <div>节点数量</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{:Url('index/plans')}">
+                            <div class="panel-footer">
+                                <span class="pull-left">购买套餐</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-users fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{$bootInfo.user}</div>
+                                    <div>用户数量</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{:Url('Index/User/info')}">
+                            <div class="panel-footer">
+                                <span class="pull-left">个人信息</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-fire-extinguisher fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{$bootInfo.history}</div>
+                                    <div>总攻击量</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{:Url('User/history')}">
+                            <div class="panel-footer">
+                                <span class="pull-left">历史查询</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-fire fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{$bootInfo.booting}</div>
+                                    <div>正在进行的攻击</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{:Url('Hub/Index')}">
+                            <div class="panel-footer">
+                                <span class="pull-left">发动攻击</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+				<!--会员信息开始-->
+                <div class="col-lg-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><i class="fa fa-user fa-fw"></i> 用户信息
+                        </div>
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <span class="list-group-item">
+                                    <i class="fa fa-comment fa-fw"></i> 用户名
+                                    <span class="pull-right text-muted ">{$userInfo.username}
+                                    </span>
+                                </span>
+                                <span class="list-group-item">
+                                    <i class="fa fa-comment fa-fw"></i> 注册时间
+                                    <span class="pull-right text-muted ">{:date("Y-m-d H:s",$userInfo['register_time'])}
+                                    </span>
+                                </span>
+                                <span class="list-group-item">
+                                    <i class="fa fa-comment fa-fw"></i> 套餐
+                                    <span class="pull-right text-muted ">
+									{eq name="userInfo.plan" value="0"}
+									未购买套餐
+									{else/}
+									{$userInfo.plan_name}
+									{/eq}
+                                    </span>
+                                </span>
+                                <span class="list-group-item">
+                                    <i class="fa fa-comment fa-fw"></i> 套餐类型
+                                    <span class="pull-right text-muted ">
+									{eq name="userInfo.plan" value="0"}
+									未购买套餐
+									{else/}
+										{eq name="userInfo.vip" value="0"}
+										普通套餐
+										{else /}
+										vip套餐
+										{/eq}
+									{/eq}
+                                    </span>
+                                </span>
+                                <span class="list-group-item">
+                                    <i class="fa fa-comment fa-fw"></i> 最大攻击时间
+                                    <span class="pull-right text-muted ">
+									{eq name="userInfo.plan" value="0"}
+									购买套餐后才会显示
+									{else/}
+									{$userInfo.maxtime}
+									{/eq}
+                                    </span>
+                                </span>
+                                <span class="list-group-item">
+                                    <i class="fa fa-comment fa-fw"></i> 最大并发
+                                    <span class="pull-right text-muted ">
+									{eq name="userInfo.plan" value="0"}
+									购买套餐后才会显示
+									{else/}
+									{$userInfo.maxboot}
+									{/eq}
+                                    </span>
+                                </span>
+                                <span class="list-group-item">
+                                    <i class="fa fa-comment fa-fw"></i> 套餐到期时间
+                                    <span class="pull-right text-muted ">
+									{eq name="userInfo.plan" value="0"}
+									购买套餐后才会显示
+									{else/}
+									{:date('Y-m-d H:s',$userInfo['expiration'])}
+									{/eq}
+                                    </span>
+                                </span>
+                                <span class="list-group-item">
+                                    <i class="fa fa-comment fa-fw"></i> 攻击次数
+                                    <span class="pull-right col-md-4 col-md-offset-4">
+									<div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{$userInfo.remainder}" aria-valuemin="0" aria-valuemax="{$userInfo.maxnum}" style="width: {$userInfo.percent}%">
+                                            <span class="pull-center" style="color: #000;">{$userInfo.remainder}/{$userInfo.maxnum}</span>
+                                        </div>
+                                    </div>
+                                    </span>
+                                </span>
+                            </div>
+                            <a href="{:Url('Plans/index')}" class="btn btn-default btn-block">购买套餐</a>
+                        </div>
+                    </div>
+                </div>
+                <!--会员信息结束-->
+				<!--公告信息开始-->
+				<div class="col-lg-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-quote-left"></i> 最新消息
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs">
+
+							{volist name="articleList" id="vo"}
+                                <li class="{if condition="$vo['id'] eq $articleList[0]['id']"}active{/if}"><a href="#{$vo.id}" data-toggle="tab" aria-expanded="true">{$vo.title}</a>
+                                </li>
+							{/volist}
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+							{volist name="articleList" id="vo"}
+                                <div class="tab-pane fade {if condition="$vo['id'] eq $articleList[0]['id']"}active in{/if} " id="{$vo.id}">
+                                    <h4>{$vo.title}</h4>
+									<hr>
+                                    <p>{:html2text($vo['content'])}</p>
+									<hr>
+									<p class="pull-left small">发布者:{$vo.author}<br>最后更改日期:{:date("Y-m-d H:s",$vo['time'])}</p>
+									<a type="button" class="btn btn-outline btn-info pull-right">查看详情</a>
+                                </div>
+                            {/volist}    
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+				<!--公告信息结束-->
+                <!--攻击记录开始-->
+                <div class="col-lg-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            历史记录
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+								{if condition="$bootHistory eq false"}
+								<div class="alert alert-info">
+									没有正在进行的攻击,您可以:<a href="{:Url('Hub/index')}" class="alert-link">发起一次攻击</a>.
+								</div>
+								{else/}
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ip</th>
+                                            <th>模式</th>
+                                            <th>时间</th>
+                                            <th>状态</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+									{volist name='bootHistory' id='vo'}
+											<tr>
+                                            <td>{$vo.ip}</td>
+                                            <td>{$vo.mode}</td>
+                                            <td>{$vo.time}</td>
+											{if condition="$vo['start_time'] + $vo['time'] elt time() and $vo['stop'] neq 1"}
+												<td>已结束</td>
+											{elseif condition="$vo['start_time'] + $vo['time'] gt time() and $vo['stop'] neq 1"/}
+											<td>进行中</td>
+											{else /}
+											<td>已停止</td>
+											{/if}
+                                            
+                                        </tr>
+									{/volist}
+                                    </tbody>
+                                </table>
+								{/if}
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!--攻击记录结束-->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+	{load href="/static/vendor/jquery/jquery.min.js,/static/vendor/bootstrap/js/bootstrap.min.js,/static/vendor/metisMenu/metisMenu.min.js,/static/vendor/raphael/raphael.min.js,/static/vendor/morrisjs/morris.min.js,/static/dist/js/sb-admin-2.js" /}
+
+</body>
+
+</html>

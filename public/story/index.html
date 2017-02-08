@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="芳文社,まんがタイム,きららキャラット,KRコミックス,得能正太郎,アニメ,新番,コミック,ゲーム" />
+<meta name="description" content="青葉が高校を卒業して、入社したのはゲーム会社！小学生の頃大好きだったゲームを作った人が会社の先輩で…。芳文社「まんがタイムきららキャラット」の大人気作品が待望のTVアニメ化決定！​" />
+<title>STORY｜TVアニメ『NEW GAME!』オフィシャルサイト</title>
+<meta name="viewport" content="width=1200" />
+<link rel="stylesheet" href="../css/common.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../css/style.css?upd=160326" type="text/css" media="screen">
+<script type="text/javascript" src="../lib/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.easing.1.3.js"></script>
+<!--[if lt IE 9]><script type="text/javascript" src="./lib/html5.js"></script><![endif]-->
+<script type="text/javascript" src="../lib/colorbox/jquery.colorbox-min.js"></script>
+<link rel="stylesheet" type="text/css" href="../lib/colorbox/colorbox.css" media="all" />
+<script type="text/javascript" src="../lib/snowfall.jquery.js"></script>
+<script type="text/javascript" src="../lib/jquery.query-2.1.7.js"></script>
+<script type="text/javascript" src="../lib/slick/slick.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../lib/slick/slick.css"/>
+<script type="text/javascript" src="../js/common.js"></script>
+<script>
+$(document).ready( function(){
+$("#MainNavi ul li:eq(3)").addClass("cr");
+//disable navigation
+	$('#StoryNavi .cs a').click(function(){
+		return false;
+	})
+});
+
+var ht=0;
+var stNum = 1;//デフォルトの話数
+$(document).ready( function(){
+	if($.query.get('st') || $.query.get('st')=="0"){
+		stNum = $.query.get('st');
+	}
+	changeStory(stNum);
+});
+function changeStory(num){
+	$.getJSON("/assets/outline/_outline.json")
+	.done(function(json) {
+		//console.log("json:",json);
+		//console.log("json[num]:",json[num]);
+		
+		$("#Outline .ep-title").html('<img src="http://newgame-anime.com/assets/outline/'+json[num].ep_num+'_title.png" alt="第'+json[num].ep_num+'話 『'+json[num].ep_title+'』">');
+		$("#Outline .ep-staff").html(json[num].ep_staff);
+		$("#Outline .ep-text").html(json[num].ep_text);
+		for (var i=0; i<6; i++) {
+			$("#Outline .sceneImage li:eq("+i+") img").attr("src","/assets/outline/"+num+"_"+(i+1)+".jpg");
+			$("#Outline .thumb li:eq("+i+") img").attr("src","/assets/outline/"+num+"_"+(i+1)+".jpg");
+		}
+		$("#Outline .msg").hide();
+		$("#Outline .episode").fadeIn();
+		setTimeout(function(){
+			imageCarou();
+		},500);
+	})
+	.fail(function(jqXHR, textStatus, errorThrown) {
+		//console.log("読み込みエラー：" + textStatus);
+		//console.log("読み込みエラーテキスト：" + jqXHR.responseText);
+		$("#Outline .msg").html('<p>データの読み込みに失敗しました。</p>');
+	});
+}
+function changeImage(num){
+	$("#Outline ul.sceneImage").slick('slickGoTo',num-1);
+}
+function imageCarou(){
+	$("#Outline ul.sceneImage").slick({
+		autoplay:true,
+		arrows:false
+	});
+}
+
+</script>
+<style>
+#BG .l0{ }
+#Outline .episode{ display: none; }
+</style>
+</head>
+<body id="Page_Story" class="sub-page">
+<!-- ** #Wrap ** -->
+<div id="Wrap" class="bg">
+<!-- ** #Navibar ** -->
+<div id="Navibar"><div class="inner">
+<h1 id="Logo"><a href="../index.html">NEW GAME!</a></h1><div id="MainNavi"><ul class="ilist">
+<li><a href="../news/index.html">NEWS</a></li>
+<li><a href="../onair/index.html">ONAIR</a></li>
+<li><a href="../intro/index.html">INTRO</a></li>
+<li><a href="index.html">STORY</a></li>
+<li><a href="../staffcast/index.html">STAFF&amp;CAST</a></li>
+<li><a href="../character/index.html">CHARACTER</a></li>
+<li><a href="../product/index.html">PRODUCTS</a></li>
+<li><a href="../movie/index.html">MOVIE</a></li>
+<li><a href="../special/index.html">SPECIAL</a></li>
+</ul></div><div id="Social"><ul class="ilist">
+<li class="tw"><a href="javascript:socShare('tw');" title="twitter">&nbsp;</a></li>
+<li class="fb"><a href="javascript:socShare('fb');" title="facebook">&nbsp;</a></li>
+<li class="gp"><a href="javascript:socShare('gp');" title="google+">&nbsp;</a></li>
+</ul></div>
+</div></div>
+<!-- ** /#Navibar ** -->
+<!-- ** #Header ** -->
+<div id="Header"><div class="inner clearfix">
+&nbsp;
+</div></div>
+<!-- ** /#Header ** -->
+<!-- ** #Content ** -->
+<div id="Content"><div class="inner clearfix">
+<!-- ** #ContentSub ** -->
+<div id="ContentSub">
+&nbsp;
+</div>
+<!-- ** /#ContentSub ** -->
+<!-- ** #ContentMain ** -->
+<div id="ContentMain">
+<div id="EntryList" class="entries">
+
+<nav id="StoryNavi"><ul class="ilist">
+<li><a href="index.html?st=1">第1話</a></li>
+<li><a href="index.html?st=2">第2話</a></li>
+<li><a href="index.html?st=3">第3話</a></li>
+<li><a href="index.html?st=4">第4話</a></li>
+<li><a href="index.html?st=5">第5話</a></li>
+<li><a href="index.html?st=6">第6話</a></li>
+<li><a href="index.html?st=7">第7話</a></li>
+<li><a href="index.html?st=8">第8話</a></li>
+<li><a href="index.html?st=9">第9話</a></li>
+<li><a href="index.html?st=10">第10話</a></li>
+<li><a href="index.html?st=11">第11話</a></li>
+<li><a href="index.html?st=12">第12話</a></li>
+</ul></nav>
+
+<div class="frm-ctt"><div class="inr">
+
+<div id="Outline">
+<div class="msg" class="t_center">LOADING DATA ...</div>
+<div class="episode">
+<p class="ep-title"><img src="index.html" alt="第 話 『 』"></p>
+<div id="slider" class="clearfix">
+<ul class="sceneImage clearfix">
+<li><img src="index.html"></li>
+<li><img src="index.html"></li>
+<li><img src="index.html"></li>
+<li><img src="index.html"></li>
+<li><img src="index.html"></li>
+<li><img src="index.html"></li>
+</ul>
+<ul class="thumb clearfix">
+<li><a href="javascript:changeImage(1);"><img src="index.html"></a></li>
+<li><a href="javascript:changeImage(2);"><img src="index.html"></a></li>
+<li><a href="javascript:changeImage(3);"><img src="index.html"></a></li>
+<li><a href="javascript:changeImage(4);"><img src="index.html"></a></li>
+<li><a href="javascript:changeImage(5);"><img src="index.html"></a></li>
+<li><a href="javascript:changeImage(6);"><img src="index.html"></a></li>
+</ul>
+</div>
+<p class="ep-text"> </p>
+<p class="ep-staff"> </p>
+</div>
+</div>
+
+</div></div>
+
+
+</div>
+</div>
+<!-- ** /#ContentMain ** -->
+</div></div>
+<!-- ** /#Content ** -->
+<!-- ** #Footer ** -->
+<div id="Footer"><div class="inner clearfix">
+<div id="Pagetop"><a href="index.html#" class="pgtop">&nbsp;</a></div>
+<div id="FooterBanner">&nbsp;</div>
+<div id="Copyright"><span>&copy; 得能正太郎・芳文社／NEW GAME!製作委員会</span></div>
+</div></div>
+<!-- ** /#Footer ** -->
+<div id="BG">
+	<div class="l0">&nbsp;</div>
+	<div class="sub0 vfit">
+		<div class="vfit prp_star">&nbsp;</div>
+		<div class="vfit prp_all">&nbsp;</div>
+	</div>
+</div>
+</div>
+<!-- ** /#Wrap ** -->
+</body>
+</html>
